@@ -1,0 +1,123 @@
+{
+  "flagship_models": {
+    "gpt-5.4": {
+      "standard": { "input": 2.50, "cached_input": 0.25, "output": 15.00 },
+      "batch":    { "input": 5.00, "cached_input": 0.50, "output": 22.50 }
+    },
+    "gpt-5.4-mini": {
+      "standard": { "input": 0.75, "cached_input": 0.075, "output": 4.50 }
+    },
+    "gpt-5.4-nano": {
+      "standard": { "input": 0.20, "cached_input": 0.02, "output": 1.25 }
+    },
+    "gpt-5.4-pro": {
+      "standard": { "input": 30.00, "output": 180.00 },
+      "batch":    { "input": 60.00, "output": 270.00 }
+    }
+  },
+
+  "realtime_and_audio": {
+    "gpt-realtime-1.5": {
+      "audio": { "input": 32.00, "cached_input": 0.40, "output": 64.00 },
+      "text":  { "input": 4.00,  "cached_input": 0.40, "output": 16.00 },
+      "image": { "input": 5.00,  "cached_input": 0.50 }
+    },
+    "gpt-realtime-mini": {
+      "audio": { "input": 10.00, "cached_input": 0.30, "output": 20.00 },
+      "text":  { "input": 0.60,  "cached_input": 0.06, "output": 2.40 },
+      "image": { "input": 0.80,  "cached_input": 0.08 }
+    }
+  },
+
+  "image_models": {
+    "gpt-image-1.5": {
+      "image": { "input": 8.00, "cached_input": 2.00, "output": 32.00 },
+      "text":  { "input": 5.00, "cached_input": 1.25, "output": 10.00 }
+    },
+    "gpt-image-1-mini": {
+      "image": { "input": 2.50, "cached_input": 0.25, "output": 8.00 },
+      "text":  { "input": 2.00, "cached_input": 0.20 }
+    }
+  },
+
+  "video_models": {
+    "sora-2": {
+      "720p": { "portrait": 0.10, "landscape": 0.10 }
+    },
+    "sora-2-pro": {
+      "720p":  { "portrait": 0.30, "landscape": 0.30 },
+      "1024p": { "portrait": 0.50, "landscape": 0.50 },
+      "1080p": { "portrait": 0.70, "landscape": 0.70 }
+    }
+  },
+
+  "transcription_models": {
+    "gpt-4o-transcribe": {
+      "input": 2.50,
+      "output": 10.00,
+      "estimated_cost_per_minute": 0.006
+    },
+    "gpt-4o-mini-transcribe": {
+      "input": 1.25,
+      "output": 5.00,
+      "estimated_cost_per_minute": 0.003
+    }
+  },
+
+  "tools": {
+    "web_search": {
+      "all_models": { "per_1k_calls": 10.00, "search_content_tokens": "billed_at_model_rate" },
+      "preview_reasoning": { "per_1k_calls": 10.00, "search_content_tokens": "billed_at_model_rate" },
+      "preview_non_reasoning": { "per_1k_calls": 25.00, "search_content_tokens": "free" }
+    },
+    "containers": {
+      "now": {
+        "1GB": 0.03,
+        "4GB": 0.12,
+        "16GB": 0.48,
+        "64GB": 1.92
+      },
+      "starting_2026_03_31": {
+        "1GB": 0.03,
+        "4GB": 0.12,
+        "16GB": 0.48,
+        "64GB": 1.92
+      }
+    },
+    "file_search": {
+      "storage_per_gb_day": 0.10,
+      "tool_call_per_1k": 2.50
+    },
+    "agent_kit": {
+      "storage_per_gb_day": 0.10
+    }
+  },
+
+  "specialized_models": {
+    "gpt-5.3-chat-latest": {
+      "input": 1.75,
+      "cached_input": 0.175,
+      "output": 14.00
+    },
+    "gpt-5.3-codex": {
+      "input": 1.75,
+      "cached_input": 0.175,
+      "output": 14.00
+    }
+  },
+
+  "finetuning": {
+    "o4-mini-2025-04-16": {
+      "training_per_hour": 100.00,
+      "input": 4.00,
+      "cached_input": 1.00,
+      "output": 16.00
+    },
+    "o4-mini-2025-04-16_data_sharing": {
+      "training_per_hour": 100.00,
+      "input": 2.00,
+      "cached_input": 0.50,
+      "output": 8.00
+    }
+  }
+}

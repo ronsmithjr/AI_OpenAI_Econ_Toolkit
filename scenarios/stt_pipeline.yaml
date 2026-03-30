@@ -1,0 +1,6 @@
+model: gpt-4o-mini-transcribe
+tier: standard
+
+usage:
+  mode: audio
+  minutes_per_day: 10000

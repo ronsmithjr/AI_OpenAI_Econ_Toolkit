@@ -1,0 +1,7 @@
+model: gpt-5.4
+tier: batch
+
+usage:
+  input_tokens: 500
+  output_tokens: 200
+  calls_per_day: 500000

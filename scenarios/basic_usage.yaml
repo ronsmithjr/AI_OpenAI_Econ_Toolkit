@@ -1,0 +1,7 @@
+model: gpt-5.4
+tier: standard
+
+usage:
+  input_tokens: 1200
+  output_tokens: 400
+  calls_per_day: 50000

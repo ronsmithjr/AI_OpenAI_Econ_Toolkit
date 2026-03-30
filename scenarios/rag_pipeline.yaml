@@ -1,0 +1,11 @@
+model: gpt-5.4
+tier: batch
+
+usage:
+  input_tokens: 2500
+  output_tokens: 800
+  calls_per_day: 20000
+
+projection:
+  months: 6
+  growth_rate: 0.12

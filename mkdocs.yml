@@ -1,0 +1,13 @@
+site_name: AI OpenAI Economics Toolkit
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - CLI Usage: cli.md
+  - Scenarios: scenarios.md
+  - API Reference:
+      - Cost Models: api/cost_models.md
+      - Monthly Projections: api/monthly.md
+      - YAML Runner: api/yaml_runner.md

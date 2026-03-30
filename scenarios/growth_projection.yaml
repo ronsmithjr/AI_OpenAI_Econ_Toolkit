@@ -1,0 +1,11 @@
+model: gpt-5.4-mini
+tier: standard
+
+usage:
+  input_tokens: 800
+  output_tokens: 200
+  calls_per_day: 20000
+
+projection:
+  months: 12
+  growth_rate: 0.08

@@ -1,0 +1,19 @@
+[project]
+name = "ai-openai-econ-toolkit"
+version = "0.1.0"
+description = "OpenAI API economics modeling toolkit"
+authors = [{ name = "Ron Smith Jr" }]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml",
+    "matplotlib",
+]
+
+
+[project.scripts]
+open-ai-econ = "cli.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["open_ai_econ", "cli"]
