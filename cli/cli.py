@@ -1,5 +1,8 @@
 import sys
 import os
+from datetime import datetime
+
+import argparse
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from open_ai_econ.calculator import interactive
@@ -10,8 +13,17 @@ from open_ai_econ.compare import compare_models
 from open_ai_econ.html_dashboard import generate_dashboard
 from open_ai_econ.loader import load_pricing, get_model
 
+from open_ai_econ.html_dashboard_multi import generate_multi_model_dashboard
+import uvicorn
+from open_ai_econ.api.fastapi_app import app
 
-import argparse
+from open_ai_econ.pdf_export import export_html_to_pdf
+from open_ai_econ.html_dashboard import generate_dashboard
+from open_ai_econ.html_dashboard_multi import generate_multi_model_dashboard
+
+
+
+
 
 
 def _run_yaml_cmd(args):
@@ -55,8 +67,7 @@ def _dashboard_cmd(args):
         args.calls_per_day,
         args.tier,
     )
-    import os
-    from datetime import datetime
+    
     output_dir = os.path.join(os.path.dirname(args.out) or ".", "output")
     os.makedirs(output_dir, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -66,6 +77,54 @@ def _dashboard_cmd(args):
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"Dashboard written to {output_path}")
+
+def _dashboard_multi_cmd(args):
+    pricing = load_pricing()
+    model_cfgs = {name: get_model(pricing, name) for name in args.models}
+
+    html = generate_multi_model_dashboard(
+        model_cfgs,
+        args.input_tokens,
+        args.output_tokens,
+        args.calls_per_day,
+        args.tier
+    )
+
+    output_dir = os.path.join(os.path.dirname(args.out) or ".", "output")
+    os.makedirs(output_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    base_name = f"multi_dashboard_{timestamp}.html"
+    output_path = os.path.join(output_dir, base_name)
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Multi‑model dashboard written to {output_path}")
+
+def _api_cmd(args):
+    uvicorn.run(app, host=args.host, port=args.port)
+
+def _pdf_cmd(args):
+    pricing = load_pricing()
+    model_cfgs = {name: get_model(pricing, name) for name in args.models}
+
+    # Single model → use single dashboard
+    if len(args.models) == 1:
+        html = generate_dashboard(
+            args.models[0],
+            model_cfgs[args.models[0]],
+            args.input_tokens,
+            args.output_tokens,
+            args.calls_per_day,
+            args.tier
+        )
+    else:
+        # Multi-model dashboard
+        html = generate_multi_model_dashboard(
+            model_cfgs,
+            args.input_tokens,
+            args.output_tokens,
+            args.calls_per_day,
+            args.tier
+        )
 
 def build_parser():
     p = argparse.ArgumentParser(description="OpenAI Economics Toolkit CLI")
@@ -99,11 +158,33 @@ def build_parser():
     pdash.add_argument("--output-tokens", type=int, required=True)
     pdash.add_argument("--calls-per-day", type=int, required=True)
     pdash.add_argument("--tier", default="standard")
-    pdash.add_argument("--out", required=True)
-
-    
+    pdash.add_argument("--out", required=True)  
 
     pdash.set_defaults(func=_dashboard_cmd)
+
+    pmulti = sub.add_parser("dashboard-multi", help="Generate multi-model HTML dashboard")
+    pmulti.add_argument("--models", nargs="+", required=True)
+    pmulti.add_argument("--input-tokens", type=int, required=True)
+    pmulti.add_argument("--output-tokens", type=int, required=True)
+    pmulti.add_argument("--calls-per-day", type=int, required=True)
+    pmulti.add_argument("--tier", default="standard")
+    pmulti.add_argument("--out", required=True)   
+
+    pmulti.set_defaults(func=_dashboard_multi_cmd)
+
+    papi = sub.add_parser("api", help="Run the REST API server")
+    papi.add_argument("--host", default="127.0.0.1")
+    papi.add_argument("--port", type=int, default=8000)
+    papi.set_defaults(func=_api_cmd)
+
+    ppdf = sub.add_parser("pdf", help="Generate a PDF from a dashboard")
+    ppdf.add_argument("--models", nargs="+", required=True)
+    ppdf.add_argument("--input-tokens", type=int, required=True)
+    ppdf.add_argument("--output-tokens", type=int, required=True)
+    ppdf.add_argument("--calls-per-day", type=int, required=True)
+    ppdf.add_argument("--tier", default="standard")
+    ppdf.add_argument("--out", required=True)
+    ppdf.set_defaults(func=_pdf_cmd)
 
     return p
 
