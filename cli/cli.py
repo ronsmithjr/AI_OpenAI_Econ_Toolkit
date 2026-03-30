@@ -1,6 +1,7 @@
 import sys
 import os
 from datetime import datetime
+import subprocess
 
 import argparse
 
@@ -17,10 +18,9 @@ from open_ai_econ.html_dashboard_multi import generate_multi_model_dashboard
 import uvicorn
 from open_ai_econ.api.fastapi_app import app
 
-from open_ai_econ.pdf_export import export_html_to_pdf
 from open_ai_econ.html_dashboard import generate_dashboard
 from open_ai_econ.html_dashboard_multi import generate_multi_model_dashboard
-
+from webui.app import scenario_deeplink
 
 
 
@@ -125,6 +125,8 @@ def _pdf_cmd(args):
             args.calls_per_day,
             args.tier
         )
+def _webui_cmd(args):
+    subprocess.run([sys.executable, "-m", "streamlit", "run", "webui/app.py"])
 
 def build_parser():
     p = argparse.ArgumentParser(description="OpenAI Economics Toolkit CLI")
@@ -186,10 +188,14 @@ def build_parser():
     ppdf.add_argument("--out", required=True)
     ppdf.set_defaults(func=_pdf_cmd)
 
+    pweb = sub.add_parser("webui", help="Launch the Streamlit Web UI")
+    pweb.set_defaults(func=_webui_cmd)
+
     return p
 
 
-def main():
+def main():  
+
     parser = build_parser()
     args = parser.parse_args()
     args.func(args)

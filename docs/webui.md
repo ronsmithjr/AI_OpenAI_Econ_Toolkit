@@ -26,47 +26,51 @@ http://localhost:8501
 
 ```
 
+## Features
+
+- Cost calculator
+- Scenario loader (upload or browse)
+- Projection charts
+- Projection tables
+- Multi-model comparison
+
 ## 🧮 Calculator Page
+
+![Calculator](assets/webui/calculator.png)
 
 The Calculator page lets you quickly estimate:
 
-Per‑call cost
+- Per‑call cost
+- Daily cost
+- Monthly cost
+- Growth projections
 
-Daily cost
+### Charts
 
-Monthly cost
+![Projection Chart](assets/webui/projection_chart.png)
 
-Growth projections
+#### Inputs
 
-Charts
+- Model — any model defined in your pricing JSON 
+- Mode — Tokens or Audio 
+- Input tokens 
+- Output tokens 
+- Calls per day 
+- Tier (standard, batch, etc.)
 
-Inputs
-Model — any model defined in your pricing JSON
+#### Outputs
 
-Mode — Tokens or Audio
-
-Input tokens
-
-Output tokens
-
-Calls per day
-
-Tier (standard, batch, etc.)
-
-Outputs
-Per‑call cost
-
-Daily cost
-
-Monthly cost
-
-Growth projection chart
-
-Projection table
+- Per‑call cost
+- Daily cost
+- Monthly cost
+- Growth projection chart
+- Projection table
 
 This is ideal for quick “what‑if” analysis.
 
 ## 📁 Scenario Loader Page
+
+![Scenario Loader](assets/webui/scenario_loader.png)
 
 The Scenario Loader supports two ways to load scenarios:
 
@@ -101,21 +105,21 @@ and lists all .yaml files for selection.
 
 This makes it easy to maintain a library of reusable scenarios.
 
-▶ Running a Scenario
+### ▶ Running a Scenario
+
+![Projection Table](assets/webui/scenario_table.png)
+
 After loading a scenario (via upload or folder selection), the UI displays:
 
-The parsed YAML configuration
-
-A Run Scenario button
+- The parsed YAML configuration
+- A Run Scenario button
 
 When executed, the UI shows:
 
-Base Monthly Cost
-Per‑call cost
-
-Daily cost
-
-Monthly cost
+- Base Monthly Cost
+- Per‑call cost
+- Daily cost
+- Monthly cost
 
 Projection Table (if defined)
 A month‑by‑month breakdown of:
@@ -183,7 +187,7 @@ Calculator
 
 Scenario Loader
 
-More pages (dashboards, PDF export, API explorer) can be added later.
+More pages (dashboards, API explorer) can be added later.
 
 🛠 Architecture
 The Web UI is built from two modules:
