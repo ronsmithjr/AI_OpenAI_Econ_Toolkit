@@ -2,6 +2,8 @@ import streamlit as st
 from open_ai_econ.loader import load_pricing, get_model
 from open_ai_econ.cost_models import cost_tokens, supports_audio, cost_audio_minutes
 from open_ai_econ.monthly import monthly_cost_tokens, monthly_growth_projection
+from scenario_loader import scenario_loader_ui
+
 
 st.title("AI OpenAI Economics Toolkit — Web UI")
 
@@ -39,3 +41,14 @@ else:
         if st.button("Calculate"):
             cost = cost_audio_minutes(model_cfg, minutes)
             st.write({"daily_cost": cost, "monthly_cost": cost * 30.437})
+
+page = st.sidebar.selectbox(
+    "Navigation",
+    ["Calculator", "Scenario Loader"]
+)
+
+if page == "Calculator":
+    # your existing calculator UI
+    ...
+elif page == "Scenario Loader":
+    scenario_loader_ui()
