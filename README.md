@@ -1,5 +1,7 @@
 # AI_OpenAI_Econ_Toolkit
 
+### Disclaimer:  90% of this code was generated using AI
+
 A modular, installable Python toolkit for modeling OpenAI API economics:
 
 - Cost estimation
